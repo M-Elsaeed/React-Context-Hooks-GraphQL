@@ -20,7 +20,18 @@ export default function AddReview() {
             mutationResult.then((result) => {
                 console.log("res", result)
                 if (result.error) setFormState('error')
-                if (result.data) setFormState('data')
+                if (result.data) {
+                    setFormState('data')
+                    subcategoryContext.dispatch({
+                        type: 'SELECT_SUBCATEGORY',
+                        subcategory: {id: null}
+                    })
+                    subcategoryContext.dispatch({
+                        type: 'SELECT_SUBCATEGORY',
+                        subcategory: {id: subcategoryContext.state.selectedSubcategory}
+                    })
+                }
+
             })
         }
     }, [mutationResult])
@@ -49,7 +60,7 @@ export default function AddReview() {
                             onChange={e => setReviewContent(e.target.value)}
                         />
                         <button
-                            disabled={subcategoryContext.state.selectedSubcategory==null}
+                            disabled={subcategoryContext.state.selectedSubcategory == null}
                             type="submit"
                         >Submit</button>
                     </form>
