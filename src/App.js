@@ -7,7 +7,7 @@ import AddReview from './components/AddReview';
 
 
 const client = new GraphQLClient({
-  url: 'http://localhost:5000/graphql'
+  url: 'https://melsaeed-reviews.herokuapp.com/graphql'
 })
 
 class App extends Component {
