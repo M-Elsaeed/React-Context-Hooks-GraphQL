@@ -18,7 +18,6 @@ export default function AddReview() {
     useEffect(() => {
         if (mutationResult) {
             mutationResult.then((result) => {
-                console.log("res", result)
                 if (result.error) setFormState('error')
                 if (result.data) {
                     setFormState('data')
@@ -39,13 +38,15 @@ export default function AddReview() {
 
     let handleSubmit = (e) => {
         e.preventDefault();
-        setFormState('loading')
-        mutationResult = addReview({
-            variables: {
-                content: reviewContent,
-                subcategoryId: subcategoryContext.state.selectedSubcategory
-            }
-        })
+        if (reviewContent) {
+            setFormState('loading')
+            mutationResult = addReview({
+                variables: {
+                    content: reviewContent,
+                    subcategoryId: subcategoryContext.state.selectedSubcategory
+                }
+            })
+        }
     }
 
     let displayForm = () => {
@@ -70,15 +71,15 @@ export default function AddReview() {
             case 'error':
                 return (<div>error</div>)
             case 'data':
-                return (<div>OK</div>)
+                return (<div>Review Added Successfully</div>)
             default:
                 break;
         }
 
     }
     return (
-        <React.Fragment>
-            <div>Add Review to Selected Subcategory</div>
+        <div className="addReviewStyle">
+            <h4>Add Review to Selected Subcategory</h4>
             {displayForm()}
             <button
                 type="reset"
@@ -88,6 +89,6 @@ export default function AddReview() {
                 }}>
                 Reset Form
             </button>
-        </React.Fragment>
+        </div>
     )
 }

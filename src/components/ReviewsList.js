@@ -23,7 +23,7 @@ function ReviewsList() {
         <React.Fragment>
             <ul>
                 {data.subcategory.reviews.map((review) => (
-                    <li key={review.id}>
+                    <li key={review.id} disabled>
                         {review.content}
                     </li>
                 ))

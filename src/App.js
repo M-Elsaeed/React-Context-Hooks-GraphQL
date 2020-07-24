@@ -13,17 +13,20 @@ const client = new GraphQLClient({
 class App extends Component {
   render() {
     return (
-      <div id="main">
-        <ClientContext.Provider value={client}>
-          <CategoryContextProvider>
-            <SubcategoryContextProvider>
-              <h1>My Reviews App</h1>
-              <CategoryList />
-              <AddReview />
-            </SubcategoryContextProvider>
-          </CategoryContextProvider>
-        </ClientContext.Provider>
-      </div>
+      <React.Fragment>
+        <h1 className="header">My Reviews App</h1>
+        <div id="main" className="main-div">
+          <ClientContext.Provider value={client}>
+            <CategoryContextProvider>
+              <SubcategoryContextProvider>
+                <CategoryList />
+                <AddReview />
+              </SubcategoryContextProvider>
+            </CategoryContextProvider>
+          </ClientContext.Provider>
+        </div>
+      </React.Fragment>
+
     );
   }
 }

@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 import {useQuery} from 'graphql-hooks'
 import {CategoryContext} from '../contexts/CategoryContext';
+import {SubcategoryContext} from '../contexts/SubcategoryContext';
 import SubcategoryList from './SubcategoryList';
 
 function CategoryList() {
     const {state, dispatch} = useContext(CategoryContext);
+    const subcategoryContext = useContext(SubcategoryContext);
     const CATEGORIES_QUERY = ` {
         categories {
           id
@@ -22,7 +24,13 @@ function CategoryList() {
             <ul>
                 {data.categories.map((category) => (
                     <li key={category.id}
-                        onClick={() => {dispatch({type: 'SELECT_CATEGORY', category})}}>
+                        onClick={() => {
+                            subcategoryContext.dispatch({
+                                type: 'SELECT_SUBCATEGORY',
+                                subcategory: {id: null}
+                            })
+                            dispatch({type: 'SELECT_CATEGORY', category})
+                        }}>
                         {category.name}
                     </li>
                 ))
